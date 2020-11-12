@@ -73,6 +73,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-ttyd=y
           CONFIG_PACKAGE_luci-app-netdata=y
           CONFIG_PACKAGE_luci-app-statistics=y
+          CONFIG_PACKAGE_luci-app-nft-qos=y
           # ssr
           CONFIG_DEFAULT_luci-app-ssr-plus=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray_plugin=y
