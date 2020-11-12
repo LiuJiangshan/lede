@@ -10,7 +10,7 @@ name: OpenWrt-CI
 on:
   push:
     branches:
-      - mir3
+      - x86_64
   schedule:
     - cron: 0 20 * * *
 
@@ -29,7 +29,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: mir3
+          ref: x86_64
 
       - name: Space cleanup
         env:
@@ -57,16 +57,16 @@ jobs:
           touch .config
           cat >> .config <<EOF
           # 小米路由3
-          CONFIG_TARGET_ramips=y
-          CONFIG_TARGET_ramips_mt7620=y
-          CONFIG_TARGET_ramips_mt7620_DEVICE_xiaomi_miwifi-r3=y
+          #CONFIG_TARGET_ramips=y
+          #CONFIG_TARGET_ramips_mt7620=y
+          #CONFIG_TARGET_ramips_mt7620_DEVICE_xiaomi_miwifi-r3=y
           # 小米路由3g
           #CONFIG_TARGET_ramips=y
           #CONFIG_TARGET_ramips_mt7621=y
           #CONFIG_TARGET_ramips_mt7621_DEVICE_xiaomi_mir3g=y
           # x86_64
-          #CONFIG_TARGET_x86_64=y
-          #CONFIG_TARGET_x86_64_Generic=y
+          CONFIG_TARGET_x86_64=y
+          CONFIG_TARGET_x86_64_Generic=y
           #
           # 常用luci-app
           #
