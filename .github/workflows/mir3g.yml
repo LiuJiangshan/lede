@@ -88,6 +88,7 @@ jobs:
           CONFIG_PACKAGE_pciutils=y
           CONFIG_PACKAGE_usbutils=y
           CONFIG_PACKAGE_kmod-mtd-rw=y
+          CONFIG_PACKAGE_curl=y
           # 服务
           CONFIG_PACKAGE_openssh-sftp-server=y
           CONFIG_PACKAGE_openssh-sftp-client=y
@@ -129,7 +130,22 @@ jobs:
           sed -i 's/^[ \t]*//g' .config
 
       - name: Generate configuration file
-        run: make defconfig
+        run: |
+          make defconfig
+          # 删除闭源驱动
+          sed -i '/CONFIG_DEFAULT_luci-app-mtwifi=y/d' .config
+          sed -i '/CONFIG_DEFAULT_kmod-mt7603e=y/d' .config
+          sed -i '/CONFIG_DEFAULT_kmod-mt76x2e=y/d' .config
+          # 删除无用主题
+          sed -i '/CONFIG_PACKAGE_luci-theme-argon=y/d' .config
+          sed -i '/CONFIG_PACKAGE_luci-theme-material=y/d' .config
+          sed -i '/CONFIG_PACKAGE_luci-theme-netgear=y/d' .config
+          # 添加开源驱动
+          cat >> .config <<EOF
+          CONFIG_DEFAULT_kmod-mt7603=y
+          CONFIG_DEFAULT_kmod-mt76x2=y
+          EOF
+          sed -i 's/^[ \t]*//g' .config
 
       - name: Make download
         run: |
